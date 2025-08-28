@@ -66,4 +66,4 @@ if(s1 != null && s2 != null)
 
 
 画像
-![サンプル画像](readmeImg/sample.png)
+![サンプル画像](readmeImg/samplesample.png)
