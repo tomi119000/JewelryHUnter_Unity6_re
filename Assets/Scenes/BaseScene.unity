@@ -241,7 +241,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.032660365}
+  m_Offset: {x: 0, y: -0.044941485}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -251,7 +251,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6, y: 2.4653208}
+  m_Size: {x: 6, y: 2.4407587}
   m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
@@ -486,6 +486,7 @@ GameObject:
   - component: {fileID: 993851068}
   - component: {fileID: 993851070}
   - component: {fileID: 993851071}
+  - component: {fileID: 993851072}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -557,8 +558,8 @@ Transform:
   m_GameObject: {fileID: 993851067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.18, y: -1.5695, z: 0.32729307}
-  m_LocalScale: {x: 1.0707, y: 1.0707, z: 1.0707}
+  m_LocalPosition: {x: -2.162, y: 0.1, z: 0.32729307}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -624,9 +625,22 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02631289, y: 0.61915076}
-  m_Size: {x: 0.6243632, y: 1.3222765}
+  m_Offset: {x: 0.026312886, y: 0.6309754}
+  m_Size: {x: 0.62436306, y: 1.2986276}
   m_Direction: 0
+--- !u!114 &993851072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993851067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d02bd68b0737447b2f2e4300b97996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &1166294856
 GameObject:
   m_ObjectHideFlags: 0
