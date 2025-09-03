@@ -1,13 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;  //名前空間（ライブラリ of）
 
 // Class difinition: MonoBehavior Classから継承 
 // public class class名 -> public にするとInspector上に表示される(=Component= Instanse)
 public class PlayerController : MonoBehaviour 
 {
+    [Header("Playerの能力値")] //publicの場合に、Inspectorに見出しを付けることができる
     Rigidbody2D rbody; //PlayerについているRigidbody2Dを扱うための変数（Rigidbody2D型）
     float axisH; //入力の方向を記憶するための変数
     public float speed = 3.0f;  //publicでUnityのInspector/PlayerControllerに表示
+    public float jumpPower = 9.0f; //ジャンプ力
+    bool goJump = false; //ジャンプフラグ（On/Off）
+    bool onGround = false;
+    public LayerMask groundLayer; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,12 +41,44 @@ public class PlayerController : MonoBehaviour
         else if(axisH < 0)
         {
             transform.localScale = new Vector3(-1,1,1);
-        }                                                                                                                                                                       
+        }
+        
+        if(Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
     }
     //1秒間に50回繰り返す(FixedUpdate)ように制御しながら行う繰り返しメソッド
     private void FixedUpdate()
     {
+        //CircleCastを飛ばして地面判定、その結果をonGroundに代入
+        onGround = Physics2D.CircleCast(
+            transform.position, //発射位置=プレイヤーの位置（基準点）
+            0.2f,               //調査する円の半径
+            new Vector2(0, 1.0f), //発射方向(※下方向）
+            0,                   //発射距離
+            groundLayer);         //対象(どのgroup(=Layer)と接触したらtrueにするのか）
+        
+        //Velocityに値を代入
         rbody.linearVelocity = new Vector2(axisH * speed, rbody.linearVelocity.y);
+
+        //ジャンプフラグが立ったら（trueだったら）
+        if(goJump)
+        {
+            //ジャンプさせる = プレイヤーを瞬間的に上に押し出す
+            rbody.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+            //ジャンプフラグをOffに戻す。無限ジャンプにならないように
+            goJump = false;
+        }
     }
 
+    //ジャンプボタンが押されたとき（Input.GetButtonDown("Jump"))に呼び出されるメソッド
+    void Jump()
+    {
+        if(onGround) //onGroundがtrueだったら（onGround == true）
+        {
+            goJump = true; //ジャンプフラグ（goJump）をOnにする
+        }
+           
+    }
 }
