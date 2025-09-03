@@ -23,6 +23,19 @@ public class PlayerController : MonoBehaviour
         // Vector2(Vector型) ：一次的にメモリに値を確保して目的となる変数に参照してもらう
         //PCの性能などに依存し、そのフレームレートで更新される--> FixedUpdate()でフレームレート固定
         //rbody.linearVelocity = new Vector2(axisH, 0);
+
+        if(axisH > 0)
+        {
+            //TransformのScaleはVector3型（3つのfloat x, y, zの構造体）
+            //Vector3型の値はメモリ（ヒープ）領域にnew演算子で記憶 --> localScaleが参照
+            //transformは利用頻度が高いためRigidbodyのようにGetComponentしなくてよい
+            //MonoBehaviorがやってくれている
+            transform.localScale = new Vector3(1,1,1);
+        }
+        else if(axisH < 0)
+        {
+            transform.localScale = new Vector3(-1,1,1);
+        }                                                                                                                                                                       
     }
     //1秒間に50回繰り返す(FixedUpdate)ように制御しながら行う繰り返しメソッド
     private void FixedUpdate()
