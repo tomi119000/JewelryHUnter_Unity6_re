@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using NUnit.Framework.Constraints;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;  //名前空間（ライブラリ of）
 
@@ -14,11 +15,13 @@ public class PlayerController : MonoBehaviour
     bool goJump = false; //ジャンプフラグ（On/Off）
     bool onGround = false;
     public LayerMask groundLayer; 
+    Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rbody = GetComponent<Rigidbody2D>( ); //Player Objectに付いているComponent情報を取得
+        rbody = GetComponent<Rigidbody2D>(); //Player Objectに付いているComponent情報を取得
+        animator = GetComponent<Animator>();    
     }
 
     // Update is called once per frame. 永久ループ(=while)
@@ -70,6 +73,18 @@ public class PlayerController : MonoBehaviour
             //ジャンプフラグをOffに戻す。無限ジャンプにならないように
             goJump = false;
         }
+
+        if(onGround)
+        {
+            if(axisH ==0) //地面の上にいる時
+            {
+                animator.SetBool("Run", false); //Idleアニメに切り替え
+            }
+            else //左右が押されている
+            {
+                animator.SetBool("Run", true); //Runアニメに切り替え
+            }
+        }
     }
 
     //ジャンプボタンが押されたとき（Input.GetButtonDown("Jump"))に呼び出されるメソッド
@@ -78,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if(onGround) //onGroundがtrueだったら（onGround == true）
         {
             goJump = true; //ジャンプフラグ（goJump）をOnにする
+            animator.SetTrigger("Jump");
         }
            
     }
