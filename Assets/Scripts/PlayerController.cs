@@ -97,4 +97,15 @@ public class PlayerController : MonoBehaviour
         }
            
     }
+
+    //IsTrigger特性を持っているColliderとぶつかったら処理される
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if(collision.gameObject.tag == "Goal")
+        if(collision.gameObject.CompareTag("Goal"))
+        {
+            GameManager.gameState = "gameclear";
+            Debug.Log("ゴールに接触した"); //gameclearステートになったかどうかを可視化するため
+        }
+    }
 }
