@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rbody; //PlayerについているRigidbody2Dを扱うための変数（Rigidbody2D型）
     float axisH; //入力の方向を記憶するための変数
     public float speed = 3.0f;  //publicでUnityのInspector/PlayerControllerに表示
-    public float jumpPower = 9.0f; //ジャンプ力
+    public float jumpPower = 18.0f; //ジャンプ力
     bool goJump = false; //ジャンプフラグ（On/Off）
     bool onGround = false;
     public LayerMask groundLayer; 
@@ -119,12 +119,34 @@ public class PlayerController : MonoBehaviour
             Debug.Log("ゴールに接触した"); //gameclearステートになったかどうかを可視化するため
             Goal();
         }
+
+        if(collision.gameObject.CompareTag("Dead"))
+        {
+            GameManager.gameState = "gameover";
+            Debug.Log("ゲームオーバー");
+            GameOver();
+
+        }
     }
 
     public void Goal()
     {
         animator.SetBool("Clear", true); //クリアアニメに切り替え
         GameStop(); //プレイヤーのVelocityを止めるメソッド
+    }
+
+    //ゲームオーバー時に呼び出されるメソッド
+    public void GameOver()
+    {
+        animator.SetBool("Dead", true); //ゲームオーバーアニメに切り替え
+        GameStop();
+
+        GetComponent<CapsuleCollider2D>().enabled = false; //Collider2Dを無効化
+
+        rbody.AddForce(new Vector2(0, 5), ForceMode2D.Impulse); //上に少し跳ね上がる
+
+        //プレイヤーを時間差で抹消する
+        Destroy(this.gameObject,3.0f);
     }
 
     void GameStop()
