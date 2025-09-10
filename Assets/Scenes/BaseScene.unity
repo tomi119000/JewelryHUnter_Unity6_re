@@ -926,6 +926,7 @@ MonoBehaviour:
   nextButton: {fileID: 713026024}
   gameClearSprite: {fileID: 21300000, guid: 560a4ec14389e96458b3b544907b0437, type: 3}
   gameOverSprite: {fileID: 21300000, guid: 8c724e7c9c31dc4498fbc559e7c0a1ad, type: 3}
+  timeText: {fileID: 433769808}
 --- !u!114 &760903651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,8 +939,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d3861c8f752fd43987e9007aa5c03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCountDown: 0
-  gameTime: 10
+  isCountDown: 1
+  gameTime: 30
   isTimeOver: 0
   displayTime: 0
 --- !u!1 &782747577
