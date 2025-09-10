@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework.Constraints;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;  //名前空間（ライブラリ of）
 
 // Class difinition: MonoBehavior Classから継承 
@@ -127,6 +128,11 @@ public class PlayerController : MonoBehaviour
             GameOver();
 
         }
+
+        if(collision.gameObject.CompareTag("ItemScore"))
+        {
+            GameManager.stageScore += collision.gameObject.GetComponent<ItemData>().value;
+            Destroy(collision.gameObject);        }
     }
 
     public void Goal()
