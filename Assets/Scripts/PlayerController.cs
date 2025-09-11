@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dead", true); //ゲームオーバーアニメに切り替え
         GameStop();
 
-        GetComponent<CapsuleCollider2D>().enabled = false; //Collider2Dを無効化
+        GetComponent<CapsuleCollider2D>().enabled = false; //Collider2Dのチェックを無効化
 
         rbody.AddForce(new Vector2(0, 5), ForceMode2D.Impulse); //上に少し跳ね上がる
 

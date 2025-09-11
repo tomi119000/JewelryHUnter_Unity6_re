@@ -16,6 +16,8 @@ public class UIController : MonoBehaviour
     TimeController timeCnt; //TimeController スクリプトを扱うための変数
     public GameObject timeText; //timeText Objectを扱うための変数
 
+    public GameObject scoreText; //scoreText Objectを扱うための変数
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,5 +66,14 @@ public class UIController : MonoBehaviour
     void InactiveImage()
     {
         mainImage.SetActive(false); 
+    }
+
+    //ScoreBoardを更新するためのメソッド
+    void UpdateScore()
+    {
+        int score = GameManager.stageScore + GameManager.totalScore;
+
+        //ScoreText ObjectのTextMeshPro Componentが所持しているtext変数にscoreを挿入
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
     }
 }

@@ -32,37 +32,44 @@ public class CanonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); //FindGameObjectWithTagメソッド（重い）        
+        player = GameObject.FindGameObjectWithTag("Player"); 
+        //FindGameObjectWithTagメソッド（重い）        
     }
 
     // Update is called once per frame
     void Update()
     {
-        passedTimes += Time.deltaTime; 
-
-        if(CheckLength(player.transform.position))
+        if (player != null)
         {
-            if(passedTimes >= delayTime)
+            passedTimes += Time.deltaTime;
+
+            if (CheckLength(player.transform.position))
             {
-                passedTimes = 0;
-                //砲弾をプレハブから生成する
-                Vector2 pos = new Vector2(gateTransform.position.x,
+                if (passedTimes >= delayTime)
+                {
+                    passedTimes = 0;
+                    //砲弾をプレハブから生成する
+                    Vector2 pos = new Vector2(gateTransform.position.x,
                     gateTransform.position.y);
 
-                //引数：誰に、どこへ、回転（ここでは無回転）
-                GameObject obj = Instantiate(objPrefab, pos, Quaternion.identity);
+                    //引数：誰に、どこへ、回転（ここでは無回転）
+                    GameObject obj = Instantiate(objPrefab, pos, Quaternion.identity);
 
-                Rigidbody2D rbody = obj.GetComponent<Rigidbody2D>();
-                float angleZ = transform.localEulerAngles.z;
-                float x = Mathf.Cos(angleZ * Mathf.Deg2Rad); //ラジアンに変換
-                float y = Mathf.Sin(angleZ * Mathf.Deg2Rad);
-                
-                Vector2 v = new Vector2(x, y) * fireSpeed;
-                rbody.AddForce(v, ForceMode2D.Impulse);  //AddForceに入れる型はVector2型
+                    Rigidbody2D rbody = obj.GetComponent<Rigidbody2D>();
+                    float angleZ = transform.localEulerAngles.z;
+                    float x = Mathf.Cos(angleZ * Mathf.Deg2Rad); //ラジアンに変換
+                    float y = Mathf.Sin(angleZ * Mathf.Deg2Rad);
 
-
+                    Vector2 v = new Vector2(x, y) * fireSpeed;
+                    rbody.AddForce(v, ForceMode2D.Impulse);  //AddForceに入れる型はVector2型
+                }
             }
         }
-        
+    }
+
+    //キャノンの範囲を円（Sphere）で表示
+    void OnDrrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, length); 
     }
 }
