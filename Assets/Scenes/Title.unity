@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb991b2c685a04e4a863bc08366cd4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: BaseScene
+  sceneName: Stage1
   toTitle: 0
 --- !u!114 &1922023307
 MonoBehaviour:

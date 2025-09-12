@@ -48,6 +48,7 @@ public class TimeController : MonoBehaviour
             {
                 //ユーザーに見せたい時間（残時間）
                 displayTime = gameTime - times;
+
                 if(displayTime <= 0)
                 {
                     displayTime = 0;
