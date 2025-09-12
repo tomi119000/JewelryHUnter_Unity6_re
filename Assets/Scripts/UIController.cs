@@ -18,12 +18,23 @@ public class UIController : MonoBehaviour
 
     public GameObject scoreText; //scoreText Objectを扱うための変数
 
+    //GameOverとGameClearのAudioはUIで担当してもらう
+    AudioSource audio;
+    SoundController soundController; //自作したスクリプト
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         timeCnt = GetComponent<TimeController>(); //TimeController script(Component)を取得
         buttonPanel.SetActive(false);  //存在を非表示
         Invoke("InactiveImage", 1.0f);  //時間差(ここでは1秒後)でメソッドを発動する
+        
+        UpdateScore(); //UIに最初の数字を反映するメソッドを呼び出す
+
+
+        audio = GetComponent<AudioSource>();
+        soundController = GetComponent<SoundController>();
+
     }
 
     // Update is called once per frame
@@ -60,6 +71,11 @@ public class UIController : MonoBehaviour
 
             UpdateScore(); //UIに最終的な数字を反映するメソッドを呼び出す
 
+            //BGMを止める
+            audio.Stop(); 
+            //一回だけ音を鳴らす
+            audio.PlayOneShot(soundController.bgm_GameClear); 
+
             //ゲーム終了Stateに変更
             //2重3重にスコアを加算しないようにするため
             GameManager.gameState = "gameend"; 
@@ -76,6 +92,12 @@ public class UIController : MonoBehaviour
             nextButton.GetComponent<Button>().interactable = false;
 
             timeCnt.isTimeOver = true; //タイムカウントを停止
+
+            //BGMを止める
+            audio.Stop();
+            //一回だけ音を鳴らす
+            audio.PlayOneShot(soundController.bgm_GameOver);
+
             GameManager.gameState = "gameend"; //ゲーム終了Stateに変更
         }
 
