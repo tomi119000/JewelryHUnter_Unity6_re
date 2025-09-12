@@ -8,6 +8,8 @@ public class ChangeScene : MonoBehaviour
     //シーンを切り替える機能を持るメソッド
     public void Load()
     {
+        //シーンが切り替わるときはいずれにしてもステージスコアはリセットされる
+        GameManager.stageScore = 0; 
         //SceneManagerクラスのLoadSceneメソッド: 引数に指定したシーンに切り替えしてくれる
         SceneManager.LoadScene(sceneName);
     }

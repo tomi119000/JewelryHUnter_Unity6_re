@@ -31,13 +31,38 @@ public class UIController : MonoBehaviour
     {
         if (GameManager.gameState == "gameclear")
         {
-            buttonPanel.SetActive(true); //gameclearステートでボタンパネル復活
+            buttonPanel.SetActive(true); //ボタンパネル復活
             mainImage.SetActive(true); //メイン画像復活
             //メイン画像オブジェクトのImageComponentが所持しているsprite（変数）にステージクリアの絵を挿入
             mainImage.GetComponent<Image>().sprite = gameClearSprite;
 
             //リトライボタンObjectのButtonComponentが所持している変数interactableを無効化
-            retryButton.GetComponent<Button>().interactable = false; 
+            retryButton.GetComponent<Button>().interactable = false;
+
+            //Stageクリアによってステージスコアが確定したので
+            //トータルスコアに加算する
+            GameManager.totalScore += GameManager.stageScore;
+            GameManager.stageScore = 0; //次面に備えてステージスコアリセット
+
+            timeCnt.isTimeOver = true; //タイムカウントを停止
+
+            float times = timeCnt.displayTime;
+            if(timeCnt.isCountDown)
+            {
+                //残時間がボーナスとしてスコアに加算される
+                GameManager.totalScore += (int)times * 10; 
+            }
+            else //カウントアップの場合
+            {
+                float gameTime = timeCnt.gameTime; //基準時間の取得
+                GameManager.totalScore +=(int) (gameTime - times)*10;
+            }
+
+            UpdateScore(); //UIに最終的な数字を反映するメソッドを呼び出す
+
+            //ゲーム終了Stateに変更
+            //2重3重にスコアを加算しないようにするため
+            GameManager.gameState = "gameend"; 
         }
 
         else if (GameManager.gameState == "gameover")
@@ -49,7 +74,11 @@ public class UIController : MonoBehaviour
 
             //NextボタンObjectのButtonComponentが所持している変数interactableを無効化
             nextButton.GetComponent<Button>().interactable = false;
+
+            timeCnt.isTimeOver = true; //タイムカウントを停止
+            GameManager.gameState = "gameend"; //ゲーム終了Stateに変更
         }
+
         else if(GameManager.gameState == "playing")
         {
             //いったんdisplaytimeの数字を変数：timesに渡しておく
@@ -70,7 +99,8 @@ public class UIController : MonoBehaviour
 
     //ScoreBoardを更新するためのメソッド
     void UpdateScore()
-    {
+    {   
+        //Total Scoreを計算
         int score = GameManager.stageScore + GameManager.totalScore;
 
         //ScoreText ObjectのTextMeshPro Componentが所持しているtext変数にscoreを挿入

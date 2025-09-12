@@ -551,7 +551,7 @@ MonoBehaviour:
   moveY: 3
   times: 5
   wait: 0
-  isMoveWhenOn: 1
+  isMoveWhenOn: 0
 --- !u!1 &463953325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 604984463180663451, guid: 12537482670dbaf4891e9ce6933bc22d, type: 3}
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpPower: 5
+  jumpPower: 7
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
