@@ -109,6 +109,22 @@ public class UIController : MonoBehaviour
             // toString methodでfloat型のtimesをstring型に変換してtextに挿入
             //Mathf.Ceil methodで四捨五入
 
+            if (timeCnt.isCountDown)
+            {
+                if (timeCnt.displayTime <= 0)
+                {
+                    //Playerを見つけて、そのPlayerController（Component）のGameOverメソッドを実行
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().GameOver();
+                    GameManager.gameState = "gameover";
+                }
+            }
+            else
+            {
+                if (timeCnt.displayTime >= timeCnt.gameTime)
+                {
+                    GameManager.gameState = "gameover";
+                }
+            }
 
         }
     }

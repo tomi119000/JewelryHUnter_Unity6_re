@@ -14,8 +14,8 @@ public class CanonController : MonoBehaviour
     GameObject player;
     float passedTimes = 0;
 
-    //AudioSource audioSource; 
-    //public AudioClip se_Shoot; 
+    AudioSource audio;
+    public AudioClip se_Shoot;
 
     //距離チェック
     bool CheckLength(Vector2 targetPos)
@@ -32,8 +32,11 @@ public class CanonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); 
-        //FindGameObjectWithTagメソッド（重い）        
+        player = GameObject.FindGameObjectWithTag("Player");
+        //FindGameObjectWithTagメソッド（重い）
+        //
+        audio = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -59,9 +62,10 @@ public class CanonController : MonoBehaviour
                     float angleZ = transform.localEulerAngles.z;
                     float x = Mathf.Cos(angleZ * Mathf.Deg2Rad); //ラジアンに変換
                     float y = Mathf.Sin(angleZ * Mathf.Deg2Rad);
-
                     Vector2 v = new Vector2(x, y) * fireSpeed;
                     rbody.AddForce(v, ForceMode2D.Impulse);  //AddForceに入れる型はVector2型
+                    
+                    audio.PlayOneShot(se_Shoot);
                 }
             }
         }
