@@ -16,6 +16,55 @@ Playerのアニメの切り替えには各クリップをトランジション�
 トランジションを組むことで、アニメ切り替えが滑らかになり、且つコーディングが効率的なものになりました。
 ![トラジションの絵](readmeImg/animator_image.png)
 
+## ItemのCodingの効率化
+Itemは列挙型のItemColorを自作して、ItemColor型の変数次第で何色が選ばれているのかにより、見た目が変わるようなCodingの工夫を行いました。
+![トランジションの絵](readmeImg/ItemColorSelection_image.png)
+
+```C#
+using UnityEngine;
+
+public enum ItemColor
+{
+    White,
+    Blue,
+    Green,
+    Red
+}
+
+public class ItemData : MonoBehaviour
+{
+    public ItemColor colors = ItemColor.White;
+    public Sprite[] itemSprites;
+
+    public int value = 0;       // 整数値を設定できる
+
+    void Start()
+    {        
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        switch (colors)
+        {
+            case ItemColor.White:
+                spriteRenderer.sprite = itemSprites[0];
+                break;
+            case ItemColor.Blue:
+                spriteRenderer.sprite = itemSprites[1];
+                break;
+            case ItemColor.Green:
+                spriteRenderer.sprite = itemSprites[2];
+                break;
+            case ItemColor.Red:
+                spriteRenderer.sprite = itemSprites[3];
+                break;
+        }
+    }
+}
+```
+
+## TextMeshProのデザイン切り分け
+TextMeshProのデザインを細かく切り分けて、データを用意するなど工夫しました。
+![TextMeshProデザインの絵](readmeImg/TextMeshPro.jpg)
+
 *******************************
 --------------------------
 見出し
