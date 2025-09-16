@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
         
         UpdateScore(); //UIに最初の数字を反映するメソッドを呼び出す
 
-
+        //"Canvas"のAudioSource componentとSoundController componentを取得する 
         audio = GetComponent<AudioSource>();
         soundController = GetComponent<SoundController>();
 
@@ -72,8 +72,8 @@ public class UIController : MonoBehaviour
             UpdateScore(); //UIに最終的な数字を反映するメソッドを呼び出す
 
             //BGMを止める
-            audio.Stop(); 
-            //一回だけ音を鳴らす
+            audio.Stop();
+            //一回だけ音を鳴らす（soundCntroller script(Component)のbgm_GameClearを指定）
             audio.PlayOneShot(soundController.bgm_GameClear); 
 
             //ゲーム終了Stateに変更
